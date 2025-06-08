@@ -8,12 +8,21 @@ public class Inventory : MonoBehaviour
     public int collectibleCount = 0;
     public TextMeshProUGUI collectibleText;
 
+    void Start()
+    {
+        UpdateCollectibleUI();
+    }
+
     public void AddCollectible()
     {
         collectibleCount++;
         Debug.Log("Collected: " + collectibleCount);
-        
+        UpdateCollectibleUI();
+    }
+
+    private void UpdateCollectibleUI()
+    {
         if (collectibleText != null)
-         collectibleText.text = "Collectibles: " + collectibleCount;
+            collectibleText.text = "Collectibles: " + collectibleCount;
     }
 }
