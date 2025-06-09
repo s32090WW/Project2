@@ -8,6 +8,8 @@ public class Player_Controller : MonoBehaviour
     public float runspeed = 10;
     public float jumpForce = 300;
     public Rigidbody2D rb;
+    public Animator anim;
+    public SpriteRenderer spriteRenderer;
 
     public GroundChecker groundChecker;
     public Player_Health health;
@@ -18,6 +20,9 @@ public class Player_Controller : MonoBehaviour
     {
        rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Player_Health>();
+        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
@@ -25,7 +30,24 @@ public class Player_Controller : MonoBehaviour
     {
         if(health.isDead) return;
         float moveInput = Input.GetAxis("Horizontal");
-        Debug.Log($"Input value: {moveInput}");
+        if(moveInput >= 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if(moveInput < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+
+        if(moveInput != 0)
+        {
+            anim.SetBool("IsRun", true);
+        }
+        else
+        {
+            anim.SetBool("IsRun", false);
+        }
+        //Debug.Log($"Input value: {moveInput}");
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -39,7 +61,7 @@ public class Player_Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) &&  groundChecker.isGrounded)
         {
-            rb.AddForce(new Vector2(0, jumpForce));
+            //rb.AddForce(new Vector2(0, jumpForce));
             rb.AddForce(Vector2.up * jumpForce);
         }
     }
