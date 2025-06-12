@@ -51,6 +51,13 @@ public class Player_Health : MonoBehaviour
         if (livesText != null)
             livesText.text = "Lives: " + health;
     }
+    void Update()
+    {
+        if (transform.position.y < -10f && !isDead) // dead zone dla gracza
+        {
+            TakeDamage(maxHealth);
+        }
+    }
 
     //health_counter ui
     //collectible counter ui

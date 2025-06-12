@@ -15,7 +15,7 @@ public class Player_Controller : MonoBehaviour
     public Player_Health health;
 
 
-    // Start is called before the first frame update
+    
     void Start()
     {
        rb = GetComponent<Rigidbody2D>();
@@ -25,7 +25,7 @@ public class Player_Controller : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
         if(health.isDead) return;
@@ -59,10 +59,38 @@ public class Player_Controller : MonoBehaviour
             rb.velocity = new Vector2(moveInput * movespeed, rb.velocity.y);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) &&  groundChecker.isGrounded)
+        
+
+
+
+        if (Input.GetKeyDown(KeyCode.Space) && groundChecker.isGrounded)
         {
-            //rb.AddForce(new Vector2(0, jumpForce));
             rb.AddForce(Vector2.up * jumpForce);
+            anim.SetTrigger("jumpTrigger");      
+        }
+
+        // Spadanie bez skoku do dead zone np idk
+        if (rb.velocity.y < -0.1f)
+        {
+            anim.SetBool("IsFalling", true);
+            anim.SetBool("IsJumping", false);
+        }
+        // siup spacja
+        else if (rb.velocity.y > 0.1f)
+        {
+            anim.SetBool("IsJumping", true);
+            anim.SetBool("IsFalling", false);
+        }
+        else
+        {
+            anim.SetBool("IsJumping", false);
+            anim.SetBool("IsFalling", false);
+        }
+
+        if (groundChecker.isGrounded)
+        {
+            anim.SetBool("IsJumping", false);
+            anim.SetBool("IsFalling", false);
         }
     }
 }
