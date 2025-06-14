@@ -69,7 +69,7 @@ public class Player_Controller : MonoBehaviour
             anim.SetTrigger("jumpTrigger");      
         }
 
-        // Spadanie bez skoku do dead zone np idk
+        // Spadanie bez skoku do dead zone np itp
         if (rb.velocity.y < -0.1f)
         {
             anim.SetBool("IsFalling", true);

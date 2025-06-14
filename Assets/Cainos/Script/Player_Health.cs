@@ -9,7 +9,7 @@ public class Player_Health : MonoBehaviour
     [SerializeField] private float health = 3;
     public Animator anim;
 
-
+    public Transform spawnPoint;
 
     public bool isDead = false;
 
@@ -33,13 +33,23 @@ public class Player_Health : MonoBehaviour
 
                 anim.SetTrigger("IsDead");
                 Debug.Log("Game Over");
-            }
+            Invoke(nameof(Respawn), 1f);
+        }
             //else
             //{
             //    health = maxHealth;
             //    Debug.Log("Player respawned with remaining lives.");
             //}
         
+    }
+    private void Respawn()
+    {
+        transform.position = spawnPoint.position;
+        health = maxHealth;
+        isDead = false;
+
+        UpdateLivesUI();
+        anim.ResetTrigger("IsDead"); 
     }
     void Start()
     {

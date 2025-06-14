@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("Enemy Settings")]
+   
     public float damage = 1f;
     public float patrolSpeed = 2f;
     public Transform leftLimit;
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
         if (health != null)
         {
             health.TakeDamage(damage);
-            anim?.SetTrigger("Attack"); // tu ma byc animacja
+           
         }
     }
 }
